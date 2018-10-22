@@ -1,0 +1,36 @@
+- name: install progress
+  yum:
+    name: "{{ pg_pkg }}"
+    state: latest
+
+- name: enable postgres service at boot
+  service:
+    name: "{{ pg_service }}"
+    enabled: yes
+- name: create the data path
+  file:
+    name: "{{ pg_dir }}"
+    owner: "{{ pg_owner }}"
+    group: "{{ pg_group }}"
+    mode:  0700
+    state: directory
+- name: Check if PostgreSQL database is initialized.
+  stat:
+    path: "{{ pg_dir }}/PG_VERSION"
+  register: path_version
+
+- name: tell user to finish setting up postgres
+  debug:
+    msg: "Either uncomment the postgres setup or manually login and initialize"
+
+- name: initilize postgres
+  #command: /usr/bin/initdb -D /var/lib/pgsql/data creates /var/lib/pgsql/data/PG_VERSION
+  command: /usr/bin/initdb -D "{{ pg_dir }}"
+  when: not path_version.stat.exists
+  become: yes
+  become_user: "{{ pg_owner }}"
+
+- name: start postgres
+  service:
+    name: postgresql.service
+    state: started

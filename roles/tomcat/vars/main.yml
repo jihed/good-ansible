@@ -1,0 +1,7 @@
+---
+# vars file for tomcat
+ tomcat_pkg: tomcat
+ tomcat_service: tomcat
+ tomcat_dir: /usr/share/tomcat/webapps/ROOT
+ tomcat_ansible_dir: /usr/share/tomcat/webapps/ansible
+

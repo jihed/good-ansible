@@ -1,0 +1,20 @@
+---
+- name: install httpd
+  package:
+    name: "{{httpd_pkg}}"
+    state: present
+- name: install HAProxy
+  yum:
+    name: "{{haproxy_pkg}}"
+    state: present
+- name: enable HAProxy
+  service:
+    name: "{{haproxy_service}}"
+    state: started
+    enabled: yes
+- name: configure haproxy
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify:
+   - start_haproxy

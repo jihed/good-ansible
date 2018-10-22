@@ -1,0 +1,6 @@
+---
+# vars file for lb
+httpd_pkg: httpd
+haproxy_pkg: haproxy
+httpd_service: httpd
+haproxy_service: haproxy

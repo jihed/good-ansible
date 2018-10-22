@@ -1,0 +1,7 @@
+---
+# vars file for postgres
+ pg_pkg: postgresql-server
+ pg_service: postgresql
+ pg_owner: postgres
+ pg_group: postgres
+ pg_dir: /var/lib/pgsql/data
