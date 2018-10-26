@@ -1,0 +1,27 @@
+---
+# tasks file for validate
+- name: validate the frontends
+  uri:
+    url: http://frontend1.068d.internal
+    return_content: yes
+  register: this
+ # failed_when: "'OK' not in this.msg"
+  failed_when: this.status != 200
+
+- name: Results from the frontends validation
+  debug: 
+    msg: "{{this}}"
+
+- name: validate the frontends
+  uri:
+    url: http://{{item}}.068d.internal:8080
+    return_content: yes
+  register: this
+  failed_when: "'OK' not in this.msg"
+  loop:
+    - app1
+    - app2
+
+- name: Results from the apps1 validation
+  debug:
+    msg: "{{this}}"

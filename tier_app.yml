@@ -3,10 +3,11 @@
 - name: deploy haproxy
   hosts: frontends
   become: true
+  vars:
+    GUID: eb75
   roles:
     - common
     - haproxy
-  tags: frontends
 
 - name: deploy tomcat
   hosts: apps
@@ -15,18 +16,10 @@
   roles:
     - common
     - tomcat
-  tags: apps
 
 - name: deploy postgres
   become: true
-  hosts: appdbs
+  hosts: appsdb
   roles:
     - common
     - postgres
-  tags: appdbs
-
-- name: validate the frontends
-  hosts: support1.068d.internal
-  roles:
-    - validate
-  tags: test
