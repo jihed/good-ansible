@@ -4,3 +4,4 @@ httpd_pkg: httpd
 haproxy_pkg: haproxy
 httpd_service: httpd
 haproxy_service: haproxy
+GUID: df29
