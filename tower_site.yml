@@ -1,0 +1,32 @@
+---
+
+- name: deploy haproxy
+  hosts: frontend
+  become: true
+  roles:
+    - common
+    - haproxy
+  tags: frontends
+
+- name: deploy tomcat
+  hosts: apps
+  gather_facts: false
+  become: true
+  roles:
+    - common
+    - tomcat
+  tags: apps
+
+- name: deploy postgres
+  become: true
+  hosts: appdbs
+  roles:
+    - common
+    - postgres
+  tags: appdbs
+
+- name: validate the frontends
+  hosts: support
+  roles:
+    - validate
+  tags: test
