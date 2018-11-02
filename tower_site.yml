@@ -1,7 +1,7 @@
 ---
 
 - name: deploy haproxy
-  hosts: frontend
+  hosts: frontends
   become: true
   roles:
     - common
